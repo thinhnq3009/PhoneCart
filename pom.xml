@@ -104,6 +104,7 @@
 			<version>2.7</version>
 		</dependency>
 
+		<!-- Thư viện hỗ trợ JSON-->
 		<!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
 		<dependency>
 			<groupId>com.googlecode.json-simple</groupId>
