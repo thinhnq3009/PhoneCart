@@ -177,8 +177,9 @@
 					<div class="card">
 						<div class="card-body">
 							<h2 class="card-title">Update product</h2>
-							<form class="form-sample" id="create-product" action="${pageContext.request.contextPath}/Product/Add" method="post" enctype="multipart/form-data">
+							<form class="form-sample" id="update-product" action="${pageContext.request.contextPath}/Product/Update" method="post" enctype="multipart/form-data">
 								<!-- <p class="card-description"> Personal info </p> -->
+								<input type="text" name="idProduct" class="d-none" />
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group row">

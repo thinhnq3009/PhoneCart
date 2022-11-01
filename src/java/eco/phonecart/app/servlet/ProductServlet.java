@@ -28,7 +28,7 @@ import jakarta.validation.Path;
  * Servlet implementation class ProductServlet
  */
 @MultipartConfig
-@WebServlet({ "/Product/Add", "/Product/Edit", "/Product/Delete" })
+@WebServlet({ "/Product/Add", "/Product/Update", "/Product/Delete" })
 public class ProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -65,6 +65,10 @@ public class ProductServlet extends HttpServlet {
 				addProduct(request, response);
 				break;
 			}
+			case "/Product/Update": {
+				updateProduct(request, response);
+				break;
+			}
 			default:
 				throw new IllegalArgumentException("Unexpected value: " + request.getContextPath());
 			}
@@ -75,6 +79,54 @@ public class ProductServlet extends HttpServlet {
 
 	}
 
+	private void readRequest(Product product, HttpServletRequest request) throws Exception{
+		
+		HttpSession session = request.getSession();
+		
+		product.setProName(request.getParameter("proName"));
+		
+		Long price = Long.valueOf(request.getParameter("proPrice"));
+		product.setProPrice(price);
+		
+		int idCategory = Integer.valueOf(request.getParameter("category"));
+		product.setCategory(new CategoryDao().findByID(idCategory));
+		
+		int idCompany = Integer.valueOf(request.getParameter("company"));
+		product.setCompany(new CompanyDao().findByID(idCompany));
+		
+		int proQuantity = Integer.valueOf(request.getParameter("proQuatity"));
+		product.setProQuatity(proQuantity);
+		
+		product.setProDescrible(request.getParameter("proDescrible"));
+		
+		Images img = new Images(request, "proImage", "ProductImage");
+		product.setProImage(img.getSrc());
+			
+		product.setProTimeCreate(new Timestamp(System.currentTimeMillis()));
+		
+		product.setAdmin((Admin) session.getAttribute("adminLogin"));
+	}
+	
+	
+	private void updateProduct(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			ProductDao dao = new ProductDao();
+			
+			Product product = dao.findById(Integer.valueOf(request.getParameter("idProduct")));
+			
+			readRequest(product, request);
+			
+//			response.getWriter().print(product.toJSON());
+			
+			dao.update(product);
+			
+			response.sendRedirect(request.getContextPath() + "/Admin/Home");
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+	}
+
 	private void addProduct(HttpServletRequest request, HttpServletResponse response) {
 		Product product = new Product();
 
@@ -82,31 +134,9 @@ public class ProductServlet extends HttpServlet {
 		
 		try {
 
-			product.setProName(request.getParameter("proName"));
-			
-			Long price = Long.valueOf(request.getParameter("proPrice"));
-			product.setProPrice(price);
-			
-			int idCategory = Integer.valueOf(request.getParameter("category"));
-			product.setCategory(new CategoryDao().findByID(idCategory));
-			
-			int idCompany = Integer.valueOf(request.getParameter("company"));
-			product.setCompany(new CompanyDao().findByID(idCompany));
-			
-			int proQuantity = Integer.valueOf(request.getParameter("proQuatity"));
-			product.setProQuatity(proQuantity);
-			
-			product.setProDescrible(request.getParameter("proDescrible"));
-			
-			Images img = new Images(request, "proImage", "ProductImage");
-			product.setProImage(img.getSrc());
+			readRequest(product, request);
 			
 			product.setProSold(0);
-			
-			product.setProTimeCreate(new Timestamp(System.currentTimeMillis()));
-			
-			product.setAdmin((Admin) session.getAttribute("adminLogin"));
-			
 			
 			//Insert to Database
 			try {
@@ -123,7 +153,7 @@ public class ProductServlet extends HttpServlet {
 			}
 			
 			
-			response.getWriter().print(product);
+			response.sendRedirect(request.getContextPath() + "/Admin/Home");
 
 		} catch (Exception e) {
 			e.printStackTrace();

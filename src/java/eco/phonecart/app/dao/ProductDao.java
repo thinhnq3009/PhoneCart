@@ -40,4 +40,9 @@ public class ProductDao {
 		return query.getSingleResult();
 
 	}
+
+	public boolean update(Product product) throws Exception {
+		return DatabaseHelper.update(product);
+		
+	}
 }

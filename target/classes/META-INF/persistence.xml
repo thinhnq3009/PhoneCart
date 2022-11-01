@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+	<persistence-unit name="PhoneCartShop" transaction-type="RESOURCE_LOCAL">
+		<class>eco.phonecart.app.model.Users</class>
+		<class>eco.phonecart.app.model.Admin</class>
+		<class>eco.phonecart.app.model.Company</class>
+		<class>eco.phonecart.app.model.Category</class>
+		<class>eco.phonecart.app.model.Product</class>
+		<class>eco.phonecart.app.model.Address</class>
+		<class>eco.phonecart.app.model.Cart</class>
+		<class>eco.phonecart.app.model.Property</class>
+		<class>eco.phonecart.app.model.ForgotPassword</class>
+		<class>eco.phonecart.app.model.Order</class>
+		<class>eco.phonecart.app.model.Order_Detail</class>
+		<class>eco.phonecart.app.model.Product_Detail</class>
+		<class>eco.phonecart.app.model.Vouncher</class>
+		<class>eco.phonecart.app.model.Wish_List</class>
+		<properties>
+			<property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=PhoneCart"/>
+			<property name="javax.persistence.jdbc.user" value="sa"/>
+			<property name="javax.persistence.jdbc.password" value="songlong"/>
+			<property name="javax.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+		</properties>
+	</persistence-unit>
+</persistence>
