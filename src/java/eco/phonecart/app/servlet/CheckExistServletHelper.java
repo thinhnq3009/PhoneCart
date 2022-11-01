@@ -44,6 +44,9 @@ public class CheckExistServletHelper extends HttpServlet {
 	@SuppressWarnings("unchecked")
 	private void checkData(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
+		response.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("UTF-8");
+		
 		String table = request.getParameter("tab");
 		String column = request.getParameter("col");
 		String data = request.getParameter("data");

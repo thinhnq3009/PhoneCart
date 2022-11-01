@@ -8,7 +8,7 @@ import org.json.simple.JSONObject;
 import eco.phonecart.app.dao.ProductDetailDao;
 import eco.phonecart.app.helper.JSONHelper;
 import eco.phonecart.app.interfaces.EntityToJSON;
-import eco.phonecart.app.interfaces.IdEntity;
+import eco.phonecart.app.interfaces.EntityPrivateData;
 
 import java.lang.reflect.Field;
 
@@ -269,7 +269,6 @@ public class Product implements Serializable, EntityToJSON {
 	public String toJSON() {
 		JSONHelper result = new JSONHelper();
 
-		
 		Field[] fields = this.getClass().getDeclaredFields();
 
 		for (int i = 0; i < fields.length; i++) {
@@ -285,10 +284,12 @@ public class Product implements Serializable, EntityToJSON {
 					result.put(f.getName(), n);
 				} else if (o instanceof Date d) {
 					result.put(f.getName(), d.toString());
-				} else if (o instanceof IdEntity id) {
+				} else if (o instanceof EntityPrivateData id) {
 					result.put(f.getName(), id.getID());
 				} else if (o instanceof EntityToJSON e) {
 					result.putJSON(f.getName(), e.toJSON());
+				} else if (o instanceof List) {
+					continue;
 				} else {
 					result.put(f.getName(), "undefined");
 				}

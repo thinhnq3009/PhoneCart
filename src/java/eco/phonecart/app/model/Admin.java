@@ -9,7 +9,7 @@ import javax.persistence.*;
 import org.json.simple.JSONObject;
 
 import eco.phonecart.app.interfaces.EntityToJSON;
-import eco.phonecart.app.interfaces.IdEntity;
+import eco.phonecart.app.interfaces.EntityPrivateData;
 
 import java.util.Date;
 import java.util.List;
@@ -21,7 +21,7 @@ import java.util.List;
  */
 @Entity
 @NamedQuery(name="Admin.findAll", query="SELECT a FROM Admin a")
-public class Admin implements Serializable, EntityToJSON, IdEntity {
+public class Admin implements Serializable, EntityToJSON, EntityPrivateData {
 	private static final long serialVersionUID = 1L;
 
 	@Id

@@ -1,5 +1,5 @@
 package eco.phonecart.app.interfaces;
 
-public interface IdEntity {
+public interface EntityPrivateData {
 	public int getID();
  }

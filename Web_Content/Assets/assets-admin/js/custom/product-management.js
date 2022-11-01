@@ -69,28 +69,58 @@
                 let xhr = new XMLHttpRequest();
                 xhr.open('GET', '/PhoneCartShop/data/product?id=' + button.getAttribute('idpro'), true);
                 xhr.onload = function () {
-                    let displayUpdate = document.querySelector('"#updatePro"');
 
-                    let input = displayUpdate.querySelectorAll('input');
-                    let select = displayUpdate.querySelectorAll('select');
-                    let textarea = displayUpdate.querySelectorAll('textarea');
+                    //Select form update
+                    let displayUpdate = document.querySelector('#updatePro');
 
-                    let listInput = [];
-                    listInput.push(input).push(select).push(textarea);
-
-                    console.log(listInput);
-
+                    // Get data from server
                     let data = JSON.parse(this.responseText);
 
-                    listInput.forEach(function (element) {
-                        element.forEach(function (input) {
-                            input.value = data[input.name];
-                        });
+                    // Get all input elements
+                    let inputText = displayUpdate.querySelectorAll('input[type="text"]');
+                    let inputNumber = displayUpdate.querySelectorAll('input[type="number"]');
+                    let textarea = displayUpdate.querySelectorAll('textarea');
+
+                    let listInput = [...inputText, ...textarea, ...inputNumber];
+
+                    // Fill input elements with data from server
+                    for (let i = 0; i < listInput.length; i++) {
+                        listInput[i].value = data[listInput[i].name];
                     }
 
-                });
+                    // Auto fill data to update form (image)
+                    let image = displayUpdate.querySelector('#image_selected');
+                    image.src = "/PhoneCartShop" + data['proImage'];
+
+                    // Auto fill data to update form (select)
+                    let select = displayUpdate.querySelectorAll('select');
+
+                    for (let i = 0; i < select.length; i++) {
+                        let options = select[i].querySelectorAll('option');
+                        let dataSelect = data[select[i].name];
 
 
+                        for (var item in dataSelect) {
+                            if (item.toLowerCase() == 'id' + select[i].name) {
+                                for (let j = 0; j < options.length; j++) {
+                                    if (options[j].value == dataSelect[item]) {
+                                        options[j].selected = true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    for (let j = 0; j < options.length; j++) {
+                        if (options[j].value == dataSelect) {
+                            options[j].selected = true;
+                        }
+                    }
+
+                }
+
+
+                xhr.send();
 
             });
 
@@ -99,6 +129,7 @@
     }
 
 
+    updateButton();
 
     changeColorProcess();
 })();
