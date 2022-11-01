@@ -1,5 +1,5 @@
 (function () {
-
+	// Dell cho test đấy
     function readFile(file) {
 
         console.log('read File')
