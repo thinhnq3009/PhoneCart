@@ -1,0 +1,10 @@
+input.already-exist {
+	border: 1px solid #ff0000;
+	box-shadow: 0 0 0 0.25rem rgb(173 10 10/ 25%);
+	    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23db3030'%3E%3Ccircle cx='6' cy='6' r='4.5'/%3E%3Cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3E%3Ccircle cx='6' cy='8.2' r='.6' fill='%23db3030' stroke='none'/%3E%3C/svg%3E") !important;
+    background-position: right calc(.375em + .275rem) center;
+    background-repeat: no-repeat;
+    background-size: calc(.75em + .55rem) calc(.75em + .55rem);
+    border-color: #db3030;
+    padding-right: calc(1.5em + 1.1rem)
+}
