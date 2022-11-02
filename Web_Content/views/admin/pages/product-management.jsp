@@ -108,8 +108,9 @@
 											data-toggle="modal" data-target="#updatePro">
 												<i class="mdi mdi-lead-pencil"></i>
 										</button>
-										<button class="btn btn-danger">
-											<i class="mdi mdi-delete-forever"></i>
+										<button class="btn btn-danger daleteProduct" idPro="${item.idProduct}" type="button"
+											data-toggle="modal" data-target="#deletePro">
+												<i class="mdi mdi-delete-forever"></i>
 										</button>
 									</td>
 								</tr>
@@ -288,7 +289,7 @@
 										<div class="form-group row">
 											<label class="col-sm-3 col-form-label">Image</label>
 											<div class="col-sm-9">
-												<input name="proImage" type="file" class="form-control" id="proImage"
+												<input name="proImage" type="file" class="form-control" id="proImage" divShow="#image_update"
 													accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*">
 											</div>
 										</div>
@@ -296,7 +297,7 @@
 										<div class="row product-image">
 											<div class="col-sm-3"></div>
 											<div class="col-sm-9 product-image">
-												<img class="pro" id="image_selected" src="" alt="">
+												<img class="pro" id="image_update" src="" alt="">
 											</div>
 										</div>
 
@@ -335,6 +336,66 @@
 		</div>
 	</div>
 </div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="deletePro" tabindex="-1" role="dialog"
+	aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-container" role="document">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="col-12 grid-margin">
+					<div class="card">
+						<div class="card-body">
+							<h2 class="card-title">Do you want delete this product</h2>
+							<div class="card card-body">
+								<div class="row mb-3">
+									<div class="col-md-6 col-12 product-image">
+										<img src="/PhoneCartShop/ProductImage/679e868d2968ed36b479.jpg" alt="">
+									</div>
+									<div class="col-md-6 col-12">
+										<div class="row">
+											<div class="col-6">
+											  <p> Name: </p>
+	                                          <p> Category: </p>
+	                                          <p> Company: </p>
+	                                          <p> Color: </p>
+	                                          <p> RAM/ROM: </p>
+	                                          <p> Quantity: </p>
+	                                          <p> Operating system: </p>
+											</div>
+											<div class="col-6">
+												<p>Iphone 14 Pro Maxx</p>
+												<p>Laptop</p>
+												<p>Apple</p>
+												<p>White</p>
+												<p>16GB/512GB</p>
+												<p>123/123 (Sold 0)</p>
+												<p>IOS</p>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								<div class="row">
+									<div class="col-md-8"></div>
+									<div class="col-md-2  col-6">
+										<button class="btn btn-danger w-100">Cancel</button>
+									</div>
+									<div class="col-md-2  col-6">
+										<button class="btn w-100 btn-success">Ok</button>
+									</div>
+								</div>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
 
 
 <!-- Modal -->
@@ -457,15 +518,15 @@
 										<div class="form-group row">
 											<label class="col-sm-3 col-form-label">Image</label>
 											<div class="col-sm-9">
-												<input name="proImage" type="file" class="form-control" id="proImage"
-													accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*">
+												<input name="proImage" type="file" class="form-control" id="proImage" divShow="#image_create"
+													accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*" >
 											</div>
 										</div>
 
 										<div class="row product-image">
 											<div class="col-sm-3"></div>
 											<div class="col-sm-9 product-image">
-												<img class="pro" id="image_selected" src="" alt="">
+												<img class="pro" id="image_create" src="" alt="">
 											</div>
 										</div>
 
