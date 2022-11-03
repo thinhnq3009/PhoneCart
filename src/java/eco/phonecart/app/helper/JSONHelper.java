@@ -5,6 +5,7 @@ import org.json.simple.JSONObject;
 import netscape.javascript.JSException;
 import netscape.javascript.JSObject;
 
+@SuppressWarnings("serial")
 public class JSONHelper extends JSONObject {
 
 	private String MARKER_CHAR = "$";
@@ -12,7 +13,7 @@ public class JSONHelper extends JSONObject {
 	private String START_CHAR = "\"" + MARKER_CHAR + "{";
 
 	public Object putJSON(Object key, String value) {
-
+			
 		value = MARKER_CHAR + value + MARKER_CHAR;
 
 		return super.put(key, value);

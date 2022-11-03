@@ -1,4 +1,4 @@
-(function() {
+(function () {
 
 	/**
 	Hiển thị ảnh khi người dùng chọn ở thẻ input lên thẻ chỉ định
@@ -15,7 +15,7 @@
 
 		if (file.files && file.files[0]) {
 			var reader = new FileReader();
-			reader.onload = function(e) {
+			reader.onload = function (e) {
 				$(seletor).attr('src', e.target.result);
 			}
 			reader.readAsDataURL(file.files[0]);
@@ -23,8 +23,8 @@
 	}
 
 	let proImage = document.querySelectorAll('input[type="file"]')
-	proImage.forEach(function(e) {
-		e.addEventListener('change', function() {
+	proImage.forEach(function (e) {
+		e.addEventListener('change', function () {
 			readFile(this, this.getAttribute('divShow'));
 		});
 	});
@@ -46,10 +46,10 @@
 
 		console.log(clearButton)
 
-		clearButton.addEventListener('click', function() {
+		clearButton.addEventListener('click', function () {
 			for (let i = 0; i < data.child.length; i++) {
 				let list = parentForm.querySelectorAll(data.child[i]);
-				list.forEach(function(element) {
+				list.forEach(function (element) {
 					if (element.tagName == 'INPUT') {
 						if (element.type == 'text') {
 							element.value = '';
@@ -78,7 +78,7 @@
 	 */
 	function changeColorProcess() {
 		let progress = document.querySelectorAll('.progress .progress-bar');
-		progress.forEach(function(element) {
+		progress.forEach(function (element) {
 			let value = element.style.width;
 
 			element.classList.remove('bg-success');
@@ -104,15 +104,15 @@
 		let listButton = document.querySelectorAll('button.updateProduct');
 
 
-		listButton.forEach(function(button) {
+		listButton.forEach(function (button) {
 
-			button.addEventListener('click', function() {
+			button.addEventListener('click', function () {
 
 
 				// AJAX request javascript
 				let xhr = new XMLHttpRequest();
 				xhr.open('GET', '/PhoneCartShop/data/product?id=' + button.getAttribute('idpro'), true);
-				xhr.onload = function() {
+				xhr.onload = function () {
 
 					//Select form update
 					let displayUpdate = document.querySelector('#updatePro');
@@ -144,7 +144,7 @@
 						let dataSelect = data[select[i].name];	// Data được lưu trên server (id, name, image) ở dạng Object
 
 						for (var item in dataSelect) {
-							if (item.toLowerCase() == 'id' + select[i].name) { 
+							if (item.toLowerCase() == 'id' + select[i].name) {
 								for (let j = 0; j < options.length; j++) {
 									if (options[j].value == dataSelect[item]) {
 										options[j].selected = true;
@@ -175,6 +175,79 @@
 	}
 
 
+
+	function deleteButton() {
+		let listButton = document.querySelectorAll('button.deleteProduct');
+
+
+		listButton.forEach(function (button) {
+
+			button.addEventListener('click', function () {
+
+
+				// AJAX request javascript
+				let xhr = new XMLHttpRequest();
+				xhr.open('GET', '/PhoneCartShop/data/product?id=' + button.getAttribute('idpro'), true);
+				xhr.onload = function () {
+
+					//Select form delete
+					let displayDelete = document.querySelector('#deletePro');
+
+					// Get data from server
+					let data = JSON.parse(this.responseText);
+
+					console.log(data)
+
+					// Auto fill data to form delete
+					for (var a in data) {
+						let element = displayDelete.querySelector('.' + a);
+
+						if (element) {
+							let value = data[a];
+							if (typeof value === 'object') {
+								for (var key in value) {
+									if (key.toLowerCase().indexOf('name') != -1) {
+										value = value[key];
+										console.log(value)
+										break;
+									}
+								}		
+							} else {
+								value = data[a];
+							}
+							element.innerHTML = value;
+						}
+					}
+
+					// Edit quantity
+					let quantity = displayDelete.querySelector('.proQuantity');
+					quantity.innerHTML = (data.proQuantity - data.proSold) + "/" + data.proQuantity + ` (Sold: ${data.proSold})`;
+
+					// Set image
+					let image = displayDelete.querySelector('#image_delete');
+					image.src = "/PhoneCartShop" + data['proImage'];
+
+					// Set idpro
+					let idpro = displayDelete.querySelector('#idPro_delete');
+					idpro.value = data['idProduct'];
+
+					//Set title 
+					let title = displayDelete.querySelector('#title_delete');
+					title.innerHTML = data['proName'];
+
+				}
+
+				// Gửi request lên server
+				xhr.send();
+
+			});
+
+
+		});
+	}
+
+
+	deleteButton();
 	updateButton();
 	changeColorProcess();
 

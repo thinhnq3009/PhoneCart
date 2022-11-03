@@ -1,45 +1,44 @@
 <%@page import="eco.phonecart.app.model.Product"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>    
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 
 
 <style>
-    .w-100 {
-      width: 100% !important;
-    }
+.w-100 {
+	width: 100% !important;
+}
 
-    .product-image>img {
-      width: 100% !important;
-      max-height: 500px !important;
-      height: unset !important;
-      border-radius: unset !important;
-      object-fit: contain;
-    }
+.product-image>img {
+	width: 100% !important;
+	max-height: 500px !important;
+	height: unset !important;
+	border-radius: unset !important;
+	object-fit: contain;
+}
 
-    .h-100 {
-      height: 100%;
-    }
+.h-100 {
+	height: 100%;
+}
 
-    .row-hidden {
-      padding: 0 !important;
-    }
+.row-hidden {
+	padding: 0 !important;
+}
 
-    .modal-dialog-container {
-      max-width: unset !important;
-      width: calc(100% - 5rem) !important;
-    }
+.modal-dialog-container {
+	max-width: unset !important;
+	width: calc(100% - 5rem) !important;
+}
 
-    .form-control {
-      color: white !important;
-    }
-    .textarea-control textarea,
-    .textarea-control {
-        height: 100%;
-    }
+.form-control {
+	color: white !important;
+}
 
-  </style>
+.textarea-control textarea, .textarea-control {
+	height: 100%;
+}
+</style>
 
 
 <div class="form">
@@ -48,8 +47,8 @@
 			<div class="col-md-3 col-9 pl-0 mb-3">
 				<!-- <div class="input-group"> -->
 				<input type="text" class="form-control input-focus"
-					placeholder="Find product ..."
-					aria-label="Find product ..." aria-describedby="basic-addon2">
+					placeholder="Find product ..." aria-label="Find product ..."
+					aria-describedby="basic-addon2">
 				<!-- </div> -->
 			</div>
 			<div class="col-md-1 col-3 mb-3 p-0">
@@ -83,77 +82,78 @@
 								</tr>
 							</thead>
 							<tbody>
-							<c:forEach items="${listProduct}" var="item">
-								<!-- Start one row -->
-								<tr>
-									<td>
-										<button class="btn btn-primary" type="button"
-											data-toggle="collapse" data-target="#id_${item.idProduct}"
-											aria-expanded="false" aria-controls="collapseExample">
-											${item.idProduct}
-											</button>
-									</td>
-									<td>${item.proName}</td>
-									<td>
-										<div class="progress">
-											<div class="progress-bar bg-success" role="progressbar"
-												style="width: ${(item.proQuatity - item.proSold)*100/item.proQuatity}%"
-												aria-valuemin="0"
-												aria-valuemax="100"></div>
-										</div>
-									</td>
-									<td>${item.proPrice}</td>
-									<td>
-										<button class="btn btn-warning updateProduct" idPro="${item.idProduct}" type="button"
-											data-toggle="modal" data-target="#updatePro">
+								<c:forEach items="${listProduct}" var="item">
+									<!-- Start one row -->
+									<tr>
+										<td>
+											<button class="btn btn-primary" type="button"
+												data-toggle="collapse" data-target="#id_${item.idProduct}"
+												aria-expanded="false" aria-controls="collapseExample">
+												${item.idProduct}</button>
+										</td>
+										<td>${item.proName}</td>
+										<td>
+											<div class="progress">
+												<div class="progress-bar bg-success" role="progressbar"
+													style="width: ${(item.proQuantity - item.proSold)*100/item.proQuantity}%"
+													aria-valuemin="0" aria-valuemax="100"></div>
+											</div>
+										</td>
+										<td>${item.proPrice}</td>
+										<td>
+											<button class="btn btn-warning updateProduct"
+												idPro="${item.idProduct}" type="button" data-toggle="modal"
+												data-target="#updatePro">
 												<i class="mdi mdi-lead-pencil"></i>
-										</button>
-										<button class="btn btn-danger daleteProduct" idPro="${item.idProduct}" type="button"
-											data-toggle="modal" data-target="#deletePro">
+											</button>
+											<button class="btn btn-danger deleteProduct"
+												idPro="${item.idProduct}" type="button" data-toggle="modal"
+												data-target="#deletePro">
 												<i class="mdi mdi-delete-forever"></i>
-										</button>
-									</td>
-								</tr>
+											</button>
+										</td>
+									</tr>
 
-								<tr>
-									<td colspan="5" class="row-hidden">
-										<div class="collapse " id="id_${item.idProduct}">
-											<div class="card card-body" style="display: block;">
-												<div class="row">
-													<div class="col-2 product-image">
-														<img
-															src="${pageContext.request.contextPath}${item.proImage}"
-															alt="">
-													</div>
-													<div class="col-9">
-														<div class="row">
-															<div class="col-6">
-															  <p> Name: </p>
-					                                          <p> Category: </p>
-					                                          <p> Company: </p>
-					                                          <p> Color: </p>
-					                                          <p> RAM/ROM: </p>
-					                                          <p> Quantity: </p>
-					                                          <p> Operating system: </p>
-															</div>
-															<div class="col-6">
-																<p>${item.proName}</p>
-																<p>${item.category.nameCategory}</p>
-																<p>${item.company.comName }</p>
-																<p>White</p>
-																<p>16GB/512GB</p>
-																<p>${(item.proQuatity - item.proSold) }/${item.proQuatity} (Sold ${item.proSold})</p>
-																<p>IOS</p>
+									<tr>
+										<td colspan="5" class="row-hidden">
+											<div class="collapse " id="id_${item.idProduct}">
+												<div class="card card-body" style="display: block;">
+													<div class="row">
+														<div class="col-2 product-image">
+															<img
+																src="${pageContext.request.contextPath}${item.proImage}"
+																alt="">
+														</div>
+														<div class="col-9">
+															<div class="row">
+																<div class="col-6">
+																	<p>Name:</p>
+																	<p>Category:</p>
+																	<p>Company:</p>
+																	<p>Color:</p>
+																	<p>RAM/ROM:</p>
+																	<p>Quantity:</p>
+																	<p>Operating system:</p>
+																</div>
+																<div class="col-6">
+																	<p>${item.proName}</p>
+																	<p>${item.category.nameCategory}</p>
+																	<p>${item.company.comName }</p>
+																	<p>White</p>
+																	<p>16GB/512GB</p>
+																	<p>${(item.proQuantity - item.proSold) }/${item.proQuantity}
+																		(Sold ${item.proSold})</p>
+																	<p>IOS</p>
+																</div>
 															</div>
 														</div>
 													</div>
 												</div>
 											</div>
-										</div>
-									</td>
-								</tr>
-								<!-- End one row -->
-							</c:forEach>
+										</td>
+									</tr>
+									<!-- End one row -->
+								</c:forEach>
 
 
 							</tbody>
@@ -178,7 +178,9 @@
 					<div class="card">
 						<div class="card-body">
 							<h2 class="card-title">Update product</h2>
-							<form class="form-sample" id="update-product" action="${pageContext.request.contextPath}/Product/Update" method="post" enctype="multipart/form-data">
+							<form class="form-sample" id="update-product"
+								action="${pageContext.request.contextPath}/Product/Update"
+								method="post" enctype="multipart/form-data">
 								<!-- <p class="card-description"> Personal info </p> -->
 								<input type="text" name="idProduct" class="d-none" />
 								<div class="row">
@@ -196,7 +198,7 @@
 											<div class="col-sm-9">
 												<select class="form-control" name="category" id="">
 													<c:forEach items="${listCategory}" var="item">
-														<option value="${item.idCategory }" >${item.nameCategory}</option>
+														<option value="${item.idCategory }">${item.nameCategory}</option>
 													</c:forEach>
 												</select>
 											</div>
@@ -209,7 +211,7 @@
 											<label class="col-sm-3 col-form-label">Company</label>
 											<div class="col-sm-9">
 												<select class="form-control" name="company">
-													<c:forEach items="${listCompany}" var="com" >
+													<c:forEach items="${listCompany}" var="com">
 														<option value="${com.idCompany }">${com.comName}</option>
 													</c:forEach>
 												</select>
@@ -271,7 +273,8 @@
 										<div class="form-group row">
 											<label class="col-sm-3 col-form-label">Quantity</label>
 											<div class="col-sm-9">
-												<input class="form-control" name="proQuatity" type="number" min="1" step="1">
+												<input class="form-control" name="proQuantity" type="number"
+													min="1" step="1">
 											</div>
 										</div>
 									</div>
@@ -279,7 +282,8 @@
 										<div class="form-group row">
 											<label class="col-sm-3 col-form-label">Price</label>
 											<div class="col-sm-9">
-												<input class="form-control" name="proPrice" type="number" min="1000" step="1000">
+												<input class="form-control" name="proPrice" type="number"
+													min="1000" step="1000">
 											</div>
 										</div>
 									</div>
@@ -289,7 +293,8 @@
 										<div class="form-group row">
 											<label class="col-sm-3 col-form-label">Image</label>
 											<div class="col-sm-9">
-												<input name="proImage" type="file" class="form-control" id="proImage" divShow="#image_update"
+												<input name="proImage" type="file" class="form-control"
+													id="proImage" divShow="#image_update"
 													accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*">
 											</div>
 										</div>
@@ -306,8 +311,8 @@
 										<div class="form-group row textarea-control">
 											<label class="col-sm-3 col-form-label">Description</label>
 											<div class="col-sm-9">
-												<textarea class="form-control" name="proDescrible" id="" cols="30"
-													rows="10"></textarea>
+												<textarea class="form-control" name="proDescrible" id=""
+													cols="30" rows="10"></textarea>
 											</div>
 										</div>
 									</div>
@@ -317,13 +322,15 @@
 									<div class="col-md-3 col-sm-6 col-12">
 										<div class="form-group row">
 											<div class="col-md-4">
-												<button type="button" data-toggle="modal" data-target="#updatePro" class="btn btn-danger w-100 mb-3">Close</button>
+												<button type="button" data-toggle="modal"
+													data-target="#updatePro" class="btn btn-danger w-100 mb-3">Close</button>
 											</div>
 											<div class="col-md-4">
-												<button type="button" class="btn btn-warning w-100 mb-3" id="clear-form">Clear</button>
+												<button type="button" class="btn btn-warning w-100 mb-3"
+													id="clear-form">Clear</button>
 											</div>
 											<div class="col-md-4">
-												<button class="btn btn-success w-100 mb-3" >Save</button>
+												<button class="btn btn-success w-100 mb-3">Save</button>
 											</div>
 										</div>
 									</div>
@@ -347,46 +354,96 @@
 				<div class="col-12 grid-margin">
 					<div class="card">
 						<div class="card-body">
-							<h2 class="card-title">Do you want delete this product</h2>
+							<h2 class="card-title">Do you want delete <span class="title_delete">this product</span></h2>
 							<div class="card card-body">
 								<div class="row mb-3">
-									<div class="col-md-6 col-12 product-image">
-										<img src="/PhoneCartShop/ProductImage/679e868d2968ed36b479.jpg" alt="">
+									<div class="col-md-6 col-12 product-image mb-3">
+										<img id="image_delete"
+											src="/PhoneCartShop/ProductImage/679e868d2968ed36b479.jpg"
+											alt="">
 									</div>
 									<div class="col-md-6 col-12">
-										<div class="row">
-											<div class="col-6">
-											  <p> Name: </p>
-	                                          <p> Category: </p>
-	                                          <p> Company: </p>
-	                                          <p> Color: </p>
-	                                          <p> RAM/ROM: </p>
-	                                          <p> Quantity: </p>
-	                                          <p> Operating system: </p>
+										<div class="row mb-3">
+											<div class="col-12 row">
+												<div class="col-6">
+													<p>Name:</p>
+												</div>
+												<div class="col-6">
+													<p class="proName"></p>
+												</div>
 											</div>
-											<div class="col-6">
-												<p>Iphone 14 Pro Maxx</p>
-												<p>Laptop</p>
-												<p>Apple</p>
-												<p>White</p>
-												<p>16GB/512GB</p>
-												<p>123/123 (Sold 0)</p>
-												<p>IOS</p>
+											<div class="col-12 row">
+												<div class="col-6">
+													<p>Price:</p>
+												</div>
+												<div class="col-6">
+													<p class="proPrice"></p>
+												</div>
+											</div>
+											<div class="col-12 row">
+												<div class="col-6">
+													<p>Category:</p>
+												</div>
+												<div class="col-6">
+													<p class="category"></p>
+												</div>
+											</div>
+											<div class="col-12 row">
+												<div class="col-6">
+													<p>Company:</p>
+												</div>
+												<div class="col-6">
+													<p class="company"></p>
+												</div>
+											</div>
+											<div class="col-12 row">
+												<div class="col-6">
+													<p>Color:</p>
+												</div>
+												<div class="col-6">
+													<p class=""></p>
+												</div>
+											</div>
+											<div class="col-12 row">
+												<div class="col-6">
+													<p>RAM/ROM:</p>
+												</div>
+												<div class="col-6">
+													<p class=""></p>
+												</div>
+											</div>
+											<div class="col-12 row">
+												<div class="col-6">
+													<p>Quantity:</p>
+												</div>
+												<div class="col-6">
+													<p class="proQuantity"></p>
+												</div>
+											</div>
+											<div class="col-12 row">
+												<div class="col-6">
+													<p>Operating system:</p>
+												</div>
+												<div class="col-6">
+													<p class=""></p>
+												</div>
 											</div>
 										</div>
-									</div>
 								</div>
-								
+
 								<div class="row">
 									<div class="col-md-8"></div>
 									<div class="col-md-2  col-6">
-										<button class="btn btn-danger w-100">Cancel</button>
+										<button type="button" data-toggle="modal"
+										data-target="#deletePro" class="btn btn-danger w-100">Cancel</button>
 									</div>
 									<div class="col-md-2  col-6">
-										<button class="btn w-100 btn-success">Ok</button>
+										<form method="post" action="${pageContext.request.contextPath}/Product/Delete">
+											<input type="hidden" name="id" id="idPro_delete"/>
+											<button class="btn w-100 btn-success">Ok</button>
+										</form>
 									</div>
 								</div>
-								
 							</div>
 						</div>
 					</div>
@@ -395,10 +452,10 @@
 		</div>
 	</div>
 </div>
+</div>
 
 
-
-<!-- Modal -->
+<!-- Modal insert new product -->
 <div class="modal fade" id="addProduct" tabindex="-1" role="dialog"
 	aria-labelledby="exampleModalLongTitle" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-container" role="document">
@@ -408,7 +465,9 @@
 					<div class="card">
 						<div class="card-body">
 							<h2 class="card-title">Create new product</h2>
-							<form class="form-sample" id="create-product" action="${pageContext.request.contextPath}/Product/Add" method="post" enctype="multipart/form-data">
+							<form class="form-sample" id="create-product"
+								action="${pageContext.request.contextPath}/Product/Add"
+								method="post" enctype="multipart/form-data">
 								<!-- <p class="card-description"> Personal info </p> -->
 								<div class="row">
 									<div class="col-md-6">
@@ -425,7 +484,7 @@
 											<div class="col-sm-9">
 												<select class="form-control" name="category" id="">
 													<c:forEach items="${listCategory}" var="item">
-														<option value="${item.idCategory }" >${item.nameCategory}</option>
+														<option value="${item.idCategory }">${item.nameCategory}</option>
 													</c:forEach>
 												</select>
 											</div>
@@ -438,7 +497,7 @@
 											<label class="col-sm-3 col-form-label">Company</label>
 											<div class="col-sm-9">
 												<select class="form-control" name="company">
-													<c:forEach items="${listCompany}" var="com" >
+													<c:forEach items="${listCompany}" var="com">
 														<option value="${com.idCompany }">${com.comName}</option>
 													</c:forEach>
 												</select>
@@ -500,7 +559,8 @@
 										<div class="form-group row">
 											<label class="col-sm-3 col-form-label">Quantity</label>
 											<div class="col-sm-9">
-												<input class="form-control" name="proQuatity" type="number" min="1" step="1">
+												<input class="form-control" name="proQuantity" type="number"
+													min="1" step="1">
 											</div>
 										</div>
 									</div>
@@ -508,7 +568,8 @@
 										<div class="form-group row">
 											<label class="col-sm-3 col-form-label">Price</label>
 											<div class="col-sm-9">
-												<input class="form-control" name="proPrice" type="number" min="1000" step="1000">
+												<input class="form-control" name="proPrice" type="number"
+													min="1000" step="1">
 											</div>
 										</div>
 									</div>
@@ -518,8 +579,9 @@
 										<div class="form-group row">
 											<label class="col-sm-3 col-form-label">Image</label>
 											<div class="col-sm-9">
-												<input name="proImage" type="file" class="form-control" id="proImage" divShow="#image_create"
-													accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*" >
+												<input name="proImage" type="file" class="form-control"
+													id="proImage" divShow="#image_create"
+													accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*">
 											</div>
 										</div>
 
@@ -535,8 +597,8 @@
 										<div class="form-group row textarea-control">
 											<label class="col-sm-3 col-form-label">Description</label>
 											<div class="col-sm-9">
-												<textarea class="form-control" name="proDescrible" id="" cols="30"
-													rows="10"></textarea>
+												<textarea class="form-control" name="proDescrible" id=""
+													cols="30" rows="10"></textarea>
 											</div>
 										</div>
 									</div>
@@ -546,13 +608,15 @@
 									<div class="col-md-3 col-sm-6 col-12">
 										<div class="form-group row">
 											<div class="col-md-4">
-												<button type="button" data-toggle="modal" data-target="#addProduct" class="btn btn-danger w-100 mb-3">Close</button>
+												<button type="button" data-toggle="modal"
+													data-target="#addProduct" class="btn btn-danger w-100 mb-3">Close</button>
 											</div>
 											<div class="col-md-4">
-												<button type="button" class="btn btn-warning w-100 mb-3" id="clear-form">Clear</button>
+												<button type="button" class="btn btn-warning w-100 mb-3"
+													id="clear-form">Clear</button>
 											</div>
 											<div class="col-md-4">
-												<button class="btn btn-success w-100 mb-3" >Save</button>
+												<button class="btn btn-success w-100 mb-3">Save</button>
 											</div>
 										</div>
 									</div>
@@ -571,9 +635,9 @@
 <%-- JavaScript --%>
 
 <script>
-
 	
 </script>
 
-<script src="${pageContext.request.contextPath}/Assets/assets-admin/js/custom/product-management.js"></script>
+<script
+	src="${pageContext.request.contextPath}/Assets/assets-admin/js/custom/product-management.js"></script>
 <%-- JavaScript --%>

@@ -46,8 +46,8 @@ public class Product implements Serializable, EntityToJSON {
 	@Column(name = "pro_price")
 	private Long proPrice;
 
-	@Column(name = "pro_quatity")
-	private int proQuatity;
+	@Column(name = "pro_quantity")
+	private int proQuantity;
 
 	@Column(name = "pro_sold")
 	private int proSold;
@@ -129,12 +129,12 @@ public class Product implements Serializable, EntityToJSON {
 		this.proName = proName;
 	}
 
-	public int getProQuatity() {
-		return this.proQuatity;
+	public int getProQuantity() {
+		return this.proQuantity;
 	}
 
-	public void setProQuatity(int proQuatity) {
-		this.proQuatity = proQuatity;
+	public void setProQuantity(int proQuatity) {
+		this.proQuantity = proQuatity;
 	}
 
 	public int getProSold() {

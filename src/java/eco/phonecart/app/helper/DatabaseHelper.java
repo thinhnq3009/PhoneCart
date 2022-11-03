@@ -80,6 +80,40 @@ public class DatabaseHelper {
 	}
 	
 
+	public static boolean delete(Serializable entity) throws Exception{
+
+		EntityManager entityManager = JpaUtils.getEntityManager();
+
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+
+		boolean result = false;
+
+		try {
+			entityTransaction.begin();
+
+			entityManager.remove(entityManager.contains(entity) ? entity : entityManager.merge(entity));
+
+			entityTransaction.commit();
+
+			result = true;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			System.out.println(e.getMessage());
+
+			entityTransaction.rollback();
+
+		} finally {
+
+			entityManager.close();
+
+		}
+
+		return result;
+
+	}
+
 ////	public static List<Serializable> query(String sql, Object...objects) {
 ////		
 ////		EntityManager entityManager = JpaUtils.getEntityManager();

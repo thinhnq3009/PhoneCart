@@ -18,7 +18,8 @@ import org.apache.commons.beanutils.BeanUtils;
 import eco.phonecart.app.dao.CategoryDao;
 import eco.phonecart.app.dao.CompanyDao;
 import eco.phonecart.app.dao.ProductDao;
-import eco.phonecart.app.helper.ToString;
+import eco.phonecart.app.helper.HttpHelper;
+import eco.phonecart.app.helper.SessionHelper;
 import eco.phonecart.app.image.Images;
 import eco.phonecart.app.model.Admin;
 import eco.phonecart.app.model.Product;
@@ -47,7 +48,7 @@ public class ProductServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		response.sendRedirect(request.getContextPath() + "/Admin/Home");
 	}
 
 	/**
@@ -57,7 +58,7 @@ public class ProductServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		request.setCharacterEncoding("UTF-8");
+		HttpHelper.setUTF8(request, response);
 
 		try {
 			switch (request.getServletPath()) {
@@ -69,6 +70,10 @@ public class ProductServlet extends HttpServlet {
 				updateProduct(request, response);
 				break;
 			}
+			case "/Product/Delete": {
+				deleteProduct(request, response);
+				break;
+			}
 			default:
 				throw new IllegalArgumentException("Unexpected value: " + request.getContextPath());
 			}
@@ -76,7 +81,25 @@ public class ProductServlet extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		HttpHelper.go(response, "/Admin/Home");
 
+	}
+
+	private void deleteProduct(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			int idPro = Integer.valueOf(request.getParameter("id"));
+			
+			ProductDao dao = new ProductDao();
+			
+			Product product = dao.findById(idPro);
+			
+			dao.delete(product);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 	}
 
 	private void readRequest(Product product, HttpServletRequest request) throws Exception{
@@ -94,8 +117,8 @@ public class ProductServlet extends HttpServlet {
 		int idCompany = Integer.valueOf(request.getParameter("company"));
 		product.setCompany(new CompanyDao().findByID(idCompany));
 		
-		int proQuantity = Integer.valueOf(request.getParameter("proQuatity"));
-		product.setProQuatity(proQuantity);
+		int proQuantity = Integer.valueOf(request.getParameter("proQuantity"));
+		product.setProQuantity(proQuantity);
 		
 		product.setProDescrible(request.getParameter("proDescrible"));
 		
@@ -118,9 +141,13 @@ public class ProductServlet extends HttpServlet {
 			
 //			response.getWriter().print(product.toJSON());
 			
-			dao.update(product);
+			if (dao.update(product)) {
+				SessionHelper.setSuccess(request, "Update successully");
+			} else {
+				SessionHelper.setError(request, "Update faild");
+			}
 			
-			response.sendRedirect(request.getContextPath() + "/Admin/Home");
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -153,8 +180,6 @@ public class ProductServlet extends HttpServlet {
 			}
 			
 			
-			response.sendRedirect(request.getContextPath() + "/Admin/Home");
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -45,4 +45,9 @@ public class ProductDao {
 		return DatabaseHelper.update(product);
 		
 	}
+
+	public boolean delete(Product product) throws Exception {
+		return DatabaseHelper.delete(product);
+		
+	}
 }
