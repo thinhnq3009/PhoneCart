@@ -4,43 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 
-
-<style>
-.w-100 {
-	width: 100% !important;
-}
-
-.product-image>img {
-	width: 100% !important;
-	max-height: 500px !important;
-	height: unset !important;
-	border-radius: unset !important;
-	object-fit: contain;
-}
-
-.h-100 {
-	height: 100%;
-}
-
-.row-hidden {
-	padding: 0 !important;
-}
-
-.modal-dialog-container {
-	max-width: unset !important;
-	width: calc(100% - 5rem) !important;
-}
-
-.form-control {
-	color: white !important;
-}
-
-.textarea-control textarea, .textarea-control {
-	height: 100%;
-}
-</style>
-
-
+ <link rel="stylesheet" href="${pageContext.request.contextPath}/Assets/assets-admin/css/custom/product-management.css">
 <div class="form">
 	<form action="">
 		<div class="row">
@@ -99,7 +63,7 @@
 													aria-valuemin="0" aria-valuemax="100"></div>
 											</div>
 										</td>
-										<td>${item.proPrice}</td>
+										<td class="string-money">${item.proPrice}</td>
 										<td>
 											<button class="btn btn-warning updateProduct"
 												idPro="${item.idProduct}" type="button" data-toggle="modal"
@@ -629,8 +593,6 @@
 		</div>
 	</div>
 </div>
-
-
 
 <%-- JavaScript --%>
 

@@ -19,6 +19,7 @@ import eco.phonecart.app.dao.CategoryDao;
 import eco.phonecart.app.dao.CompanyDao;
 import eco.phonecart.app.dao.ProductDao;
 import eco.phonecart.app.helper.HttpHelper;
+import eco.phonecart.app.helper.PopupMessage;
 import eco.phonecart.app.helper.SessionHelper;
 import eco.phonecart.app.image.Images;
 import eco.phonecart.app.model.Admin;
@@ -142,9 +143,9 @@ public class ProductServlet extends HttpServlet {
 //			response.getWriter().print(product.toJSON());
 			
 			if (dao.update(product)) {
-				SessionHelper.setSuccess(request, "Update successully");
+				SessionHelper.addPopup(request, "Update product successfully", PopupMessage.SUCCESS);
 			} else {
-				SessionHelper.setError(request, "Update faild");
+				SessionHelper.addPopup(request, "Update product faild", PopupMessage.ERROR);
 			}
 			
 			
@@ -170,9 +171,9 @@ public class ProductServlet extends HttpServlet {
 				ProductDao dao = new ProductDao();
 				
 				if (dao.insert(product)) {
-					session.setAttribute("successMessage", "Created product successfully");
+					SessionHelper.addPopup(request, "Created product successfully", PopupMessage.SUCCESS);
 				} else {
-					session.setAttribute("errorMessage", "Created product faild");
+					SessionHelper.addPopup(request, "Created product unsuccessful", PopupMessage.ERROR);
 				}
 										
 			} catch (Exception e) {

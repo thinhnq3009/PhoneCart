@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import eco.phonecart.app.dao.CategoryDao;
+import eco.phonecart.app.dao.ProductDao;
 import eco.phonecart.app.model.Category;
+import eco.phonecart.app.model.Product;
 
 /**
  * Servlet implementation class Home
@@ -29,6 +31,10 @@ public class HomeServlet extends HttpServlet {
 			List<Category> listCategories = dao.getAll();
 			
 			request.setAttribute("listCategories", listCategories);
+			
+			ProductDao productDao = new ProductDao();
+			List<Product> listProducts = productDao.getAll();
+			request.setAttribute("listProducts", listProducts);
 			
 		} catch (Exception e) {
 			// TODO: handle exception

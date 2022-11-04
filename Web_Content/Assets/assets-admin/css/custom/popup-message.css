@@ -1,0 +1,245 @@
+.popup-message {
+    position: fixed;
+    bottom: 0.2rem;
+    right: 0.2rem;
+    width: 300px;
+    /* height: 80px; */
+    /* border-radius: 3px; */
+
+    /* background-color: rgb(50, 50, 50); */
+}
+
+/* .popup-message .list-item:first-child {
+    margin-top: 0.5rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+.popup-message .list-item:last-child {
+    margin-bottom: 0.5rem !important;
+} */
+
+
+/* 
+.popup-message .list-item {
+    padding: 0.2rem 0.5rem;
+    padding-top: 0.7rem;
+} */
+.popup-message .list-item .item.item-message {
+    color: #fff;
+    margin-bottom: 0.5rem;
+    margin-right: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0.2rem 0.5rem;
+}
+
+.popup-message .list-item .item.item-message.danger {
+    color: #fff;
+    background-color: #f44336;
+}
+
+.popup-message .list-item .item.item-message.warning {
+    color: #fff;
+    background-color: #ff9800;
+}
+
+.popup-message .list-item .item.item-message.success {
+    color: #fff;
+    background-color: #4caf50;
+}
+
+
+
+.popup-message .list-item .icon-message {
+    width: 40px;
+    font-size: 30px;
+
+}
+
+.popup-message .list-item .content {
+    width: 300px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin-right: 0.5rem;
+    margin-left: 0.5rem;
+}
+
+
+.item.item-message:hover .icon-message {
+    animation: tada_h 2s;
+}
+
+.item.item-message:hover .close {
+    animation: spin 0.7s;
+}
+.popup-message .list-item .icon-message {
+    animation: tada 1s;
+}
+
+.popup-message .list-item .close {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.close > i {
+    cursor: pointer;
+}
+
+.popup-message .list-item .close:hover {
+    animation: spin_sooth 0.7s;
+}
+
+
+
+.popup-message .list-item .close i {
+    margin: unset;
+}
+
+@keyframes spin_sooth {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+@keyframes tada {
+    from {
+        transform: scale3d(1, 1, 1);
+    }
+
+    10%,
+    20% {
+        transform: scale3d(0.9, 0.9, 0.9) rotate3d(0, 0, 1, -3deg);
+    }
+
+    30%,
+    50%,
+    70%,
+    90% {
+        transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+    }
+
+    40%,
+    60%,
+    80% {
+        transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+    }
+
+    to {
+        transform: scale3d(1, 1, 1);
+    }
+}
+
+
+@keyframes tada_h {
+    from {
+        transform: scale3d(1, 1, 1);
+    }
+
+    10%,
+    20% {
+        transform: scale3d(0.9, 0.9, 0.9) rotate3d(0, 0, 1, -3deg);
+    }
+
+    30%,
+    50%,
+    70%,
+    90% {
+        transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+    }
+
+    40%,
+    60%,
+    80% {
+        transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+    }
+
+    to {
+        transform: scale3d(1, 1, 1);
+    }
+}
+
+
+@keyframes bounceOutRight {
+  20% {
+    opacity: 1;
+    transform: translate3d(-20px, 0, 0) scaleX(0.9);
+  }
+
+  to {
+    opacity: 0;
+    transform: translate3d(2000px, 0, 0) scaleX(2);
+  }
+}
+
+.bounceOutRight {
+  animation: bounceOutRight 1s forwards;
+  
+}
+
+
+@keyframes bounceInRight {
+  from,
+  60%,
+  75%,
+  90%,
+  to {
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+
+  from {
+    opacity: 0;
+    transform: translate3d(3000px, 0, 0) scaleX(3);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translate3d(-25px, 0, 0) scaleX(1);
+  }
+
+  75% {
+    transform: translate3d(10px, 0, 0) scaleX(0.98);
+  }
+
+  90% {
+    transform: translate3d(-5px, 0, 0) scaleX(0.995);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.bounceInRight {
+  animation: bounceInRight 1s ;
+}
+
+
+#popup-message .delay-1 {
+	animation-delay: 0.2s	
+}
+#popup-message .delay-2 {
+	animation-delay: 0.3s	
+}
+#popup-message .delay-3 {
+	animation-delay: 0.6s	
+}
+#popup-message .delay-4 {
+	animation-delay: 0.8s	
+}

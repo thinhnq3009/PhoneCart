@@ -1,3 +1,4 @@
+<%@page import="eco.phonecart.app.helper.SessionHelper"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>  
@@ -20,6 +21,7 @@
   <!-- endinject -->
   <!-- Layout styles -->
   <link rel="stylesheet" href="${pageContext.request.contextPath}/Assets/assets-admin/css/style.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/Assets/assets-admin/css/custom/popup-message.css">
   <!-- End layout styles -->
   <link rel="shortcut icon" href="${pageContext.request.contextPath}/Assets/assets-admin/images/favicon.png" />
 </head>
@@ -358,6 +360,29 @@
     <!-- page-body-wrapper ends -->
   </div>
   
+  <!-- Thông báo đính góc màng hình -->
+  <div class="popup-message" id="popup-message">
+    <div class="list-item">
+            
+		<c:forEach items="${sessionScope.listPopupMessage}" var="item">
+			<div class="item item-message ${item.type} bounceInRight delay-${item.delay}">
+	       <div class="icon-message">
+	         <i class='${item.icon }'></i>
+	       </div>
+	       <div class="content">
+	         <span>${item.content }</span>
+	       </div>
+	       <div class="close"> 
+	         <i class="mdi mdi-close"></i>
+	       </div>
+	     </div>
+		</c:forEach>
+        <% session.removeAttribute(SessionHelper.POPUP); %>
+                
+      
+    </div>
+  </div>
+  <!-- Kết thúc thông báo -->
   
   <!-- Boostrap script start -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -387,6 +412,9 @@
   <script src="${pageContext.request.contextPath}/Assets/assets-admin/js/todolist.js"></script>
   <!-- endinject -->
   <!-- Custom js for this page -->
+  
+  <script src="${pageContext.request.contextPath}/Assets/assets-admin/js/custom/popup-message.js"></script>
+  <script src="${pageContext.request.contextPath}/Assets/assets/js/custom/AutoFormatMoney.js"></script>
   <!-- End custom js for this page -->
 </body>
 
