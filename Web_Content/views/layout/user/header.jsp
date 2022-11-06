@@ -7,14 +7,17 @@
 <nav class="navbar py-lg-4 py-3 px-0 border-bottom navbar-menu">
   <div class="container-fluid">
     <div class="row w-100 align-items-center g-0 g-lg-3">
-      <div class="col-xxl-10 col-lg-8">
+      <div class="col-xxl-8 col-lg-7">
         <div class="d-flex align-items-center ml-3">
-          <button class="navbar-toggler collapsed d-none d-lg-block" type="button" data-bs-toggle="offcanvas"
-            data-bs-target="#navbar-default" aria-controls="navbar-default">
-            <span class="icon-bar top-bar mt-0"></span>
-            <span class="icon-bar middle-bar"></span>
-            <span class="icon-bar bottom-bar"></span>
-          </button>
+          <c:if test="${empty sessionScope.userLogin}">
+				<button class="navbar-toggler collapsed d-none d-lg-block"
+					type="button" data-bs-toggle="offcanvas"
+					data-bs-target="#navbar-default" aria-controls="navbar-default">
+					<span class="icon-bar top-bar mt-0"></span> <span
+						class="icon-bar middle-bar"></span> <span
+						class="icon-bar bottom-bar"></span>
+				</button>
+			</c:if>
           <a class="navbar-brand d-none d-lg-block ms-4" href="${pageContext.request.contextPath}/Home">
             <img src="${pageContext.request.contextPath}/Assets/assets/images/logo/freshcart-logo.svg" alt="eCommerce HTML Template">
 
@@ -24,14 +27,17 @@
               <div class="input-group ">
                 <input class="form-control rounded-3" type="search"  id="searchInput" value="Header from layout">
                 <span class="input-group-append">
-                    <button class="btn bg-white border border-start-0 ms-n10" type="button">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                      class="feather feather-search">
-                      <circle cx="11" cy="11" r="8"></circle>
-                      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                    </svg>
-                    </button>
+					<button class="btn bg-white border border-start-0 ms-n10"
+						type="button">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16"
+							height="16" viewBox="0 0 24 24" fill="none"
+							stroke="currentColor" stroke-width="2"
+							stroke-linecap="round" stroke-linejoin="round"
+							class="feather feather-search">
+	                    	<circle cx="11" cy="11" r="8"></circle>
+	                      	<line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+	                    </svg>
+					</button>
                 </span>
             </div>
             </form>
@@ -90,7 +96,7 @@
         </div>
       </div>
 
-      <div class="col-xxl-2 col-lg-4 d-flex align-items-center justify-content-end ">
+      <div class="col-xxl-4 col-lg-5 d-flex align-items-center justify-content-end ">
         <!-- Button trigger modal -->
         <div class="list-inline  d-lg-block d-none">
 	
@@ -131,6 +137,40 @@
             </a>
           </div>
 			<!-- Nút giỏ hàng end -->
+			
+			<!-- Avata -->
+			<div class="list-inline-item">
+				<div class="d-flex align-items-center justify-content-end ms-5">
+					<div class="d-lg-block d-none">${userLogin.accountName}</div>
+
+					<div class="dropdown">
+						<a class="nav-link dropdown-toggle avata-user" href="#"
+							role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							<div class="avata mx-3"
+								style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid #198754; position: relative; overflow: hidden;">
+								<img
+									src="${pageContext.request.contextPath}${userLogin.avata}"
+									alt="" class=""
+									style="object-fit: contain; height: 100%; width: 100%;">
+
+							</div>
+						</a>
+						<ul class="dropdown-menu" data-bs-popper="static"
+							style="right: 0 !important; left: unset;">
+							<!-- <li><a class="dropdown-item" href="../index.html"></a></li> -->
+							<li><a class="dropdown-item"
+								href="../pages/index-2.html">Your account</a></li>
+							<li><a class="dropdown-item"
+								href="../pages/index-3.html">Log out</a></li>
+
+						</ul>
+					</div>
+
+
+				</div>
+			</div>
+			<!-- End avata -->
+			
 			</c:when>
 			<c:otherwise>
 			<!-- Nút đăng nhập start-->
@@ -147,12 +187,13 @@
             </a>
              
           </div>
+          
           <div class="list-inline-item">
             <a href="#!" class="text-muted a-hover" data-bs-toggle="modal" data-bs-target="#signup">Sign Up</a>
           </div>
 			<!-- Nứt đăng nhập end -->
 			</c:otherwise>
-			</c:choose>
+		</c:choose>
         </div>
       </div>
     </div>
