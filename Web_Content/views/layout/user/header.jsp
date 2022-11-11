@@ -67,7 +67,7 @@
                   </svg>
                 </a>
                </div>
-               <div class="list-inline-item" >
+               <div class="list-inline-item"  >
                	<a href="#!" class="text-muted"  data-bs-toggle="modal" data-bs-target="#userModal">Sign In</a>
                </div>
                 </c:when>
@@ -83,7 +83,7 @@
                     <path d="M16 10a4 4 0 0 1-8 0"></path>
                   </svg>
                   <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">
-                    1
+                    4
                     <span class="visually-hidden">unread messages</span>
                   </span>
                 </a>
@@ -131,7 +131,7 @@
                 <path d="M16 10a4 4 0 0 1-8 0"></path>
               </svg>
               <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">
-                1
+                6
                 <span class="visually-hidden">unread messages</span>
               </span>
             </a>
@@ -143,13 +143,13 @@
 				<div class="d-flex align-items-center justify-content-end ms-5">
 					<div class="d-lg-block d-none">${userLogin.accountName}</div>
 
-					<div class="dropdown">
+					<div class="dropdown d-block">
 						<a class="nav-link dropdown-toggle avata-user" href="#"
 							role="button" data-bs-toggle="dropdown" aria-expanded="false">
 							<div class="avata mx-3"
 								style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid #198754; position: relative; overflow: hidden;">
 								<img
-									src="${pageContext.request.contextPath}${userLogin.avata}"
+									src="${pageContext.request.contextPath}${userLogin.avata != null ? userLogin.avata : '/Assets/assets/images/png/default_avata.png'}"
 									alt="" class=""
 									style="object-fit: contain; height: 100%; width: 100%;">
 
@@ -161,7 +161,7 @@
 							<li><a class="dropdown-item"
 								href="../pages/index-2.html">Your account</a></li>
 							<li><a class="dropdown-item"
-								href="../pages/index-3.html">Log out</a></li>
+								href="${pageContext.request.contextPath}/Account/Logout">Log out</a></li>
 
 						</ul>
 					</div>
@@ -173,7 +173,7 @@
 			
 			</c:when>
 			<c:otherwise>
-			<!-- Nút đăng nhập start-->
+         <!-- Nút đăng nhập start-->
           <div class="list-inline-item">
 
             <a href="#!" class="text-muted a-hover" data-bs-toggle="modal" data-bs-target="#userModal">
@@ -189,9 +189,10 @@
           </div>
           
           <div class="list-inline-item">
-            <a href="#!" class="text-muted a-hover" data-bs-toggle="modal" data-bs-target="#signup">Sign Up</a>
+            <a href="${pageContext.request.contextPath}/Account/SignUp" class="text-muted a-hover" >Sign Up</a>
           </div>
 			<!-- Nứt đăng nhập end -->
+			
 			</c:otherwise>
 		</c:choose>
         </div>
@@ -213,7 +214,7 @@
               <rect x="14" y="3" width="7" height="7"></rect>
               <rect x="14" y="14" width="7" height="7"></rect>
               <rect x="3" y="14" width="7" height="7"></rect>
-            </svg></span> All Departments
+            </svg></span> Categories
         </a>
         <div class="collapse mt-2" id="collapseExample">
           <div class="card card-body">
@@ -230,18 +231,34 @@
         </div>
       </div>
       <ul class="navbar-nav navbar-nav-offcanvac">
-       <li class="nav-item">
-          <a class="nav-link" href="${pageContext.request.contextPath}/Account/SignIn">
-            Sign In
-          </a>
-       </li>
-       
-        <li class="nav-item">
-          <a class="nav-link" href="${pageContext.request.contextPath}/Account/SignUp">
-            Sign Up
-          </a>
-        </li>
-      </ul>
+			<c:choose>
+				<c:when test="${empty userLogin }">
+				<li class="nav-item">
+					<a class="nav-link" href="${pageContext.request.contextPath}/Account/SignIn"> 
+						Sign In 
+					</a>
+				</li>
+	
+				<li class="nav-item">
+					<a class="nav-link" href="${pageContext.request.contextPath}/Account/SignUp"> 
+						Sign Up 
+					</a>
+				</li>
+				</c:when>
+				<c:otherwise>
+				<li class="nav-item">
+					<a class="nav-link" href="${pageContext.request.contextPath}/Account/SignIn"> 
+						Your Account
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="${pageContext.request.contextPath}/Account/SignIn"> 
+						Log out
+					</a>
+				</li>
+				</c:otherwise>
+			</c:choose>
+		</ul>
 
     </div>
     </div>
@@ -281,12 +298,13 @@
   </div>
 </div>
 
+<c:if test="${not empty sessionScope.userLogin }" > 
 
-<!-- Shop Cart -->
+<!-- Your Cart -->
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
   <div class="offcanvas-header border-bottom">
     <div class="text-start">
-      <h5 id="offcanvasRightLabel" class="mb-0 fs-4">Shop Cart</h5>
+      <h5 id="offcanvasRightLabel" class="mb-0 fs-4">Your Cart</h5>
       <small>Location in 382480</small>
     </div>
     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -295,66 +313,25 @@
 
     <div class="">
       <!-- alert -->
+      <c:if test="${not empty errorMessage }"> 
       <div class="alert alert-danger p-2" role="alert">
-        You’ve got FREE delivery. Start <a href="#!" class="alert-link">checkout now!</a>
+        ${errorMessage}
       </div>
+      </c:if>
+       <c:forEach items="${cartItems}" var="item">
       <ul class="list-group list-group-flush">
         <!-- list group -->
-        <li class="list-group-item py-3 ps-0 border-top">
-          <!-- row -->
-          <div class="row align-items-center">
-            <div class="col-3 col-md-2">
-              <!-- img --> <img src="${pageContext.request.contextPath}/Assets/assets/images/products/product-img-1.jpg" alt="Ecommerce"
-                class="img-fluid"></div>
-            <div class="col-4 col-md-6 col-lg-5">
-              <!-- title -->
-              <a href="../pages/shop-single.html" class="text-inherit">
-                <h6 class="mb-0">Haldiram's Sev Bhujia</h6>
-              </a>
-              <span><small class="text-muted">.98 / lb</small></span>
-              <!-- text -->
-              <div class="mt-2 small lh-1"> <a href="#!" class="text-decoration-none text-inherit"> <span
-                    class="me-1 align-text-bottom">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
-                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                      class="feather feather-trash-2 text-success">
-                      <polyline points="3 6 5 6 21 6"></polyline>
-                      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
-                      </path>
-                      <line x1="10" y1="11" x2="10" y2="17"></line>
-                      <line x1="14" y1="11" x2="14" y2="17"></line>
-                    </svg></span><span class="text-muted">Remove</span></a></div>
-            </div>
-            <!-- input group -->
-            <div class="col-3 col-md-3 col-lg-3">
-              <!-- input -->
-              <!-- input -->
-                  <div class="input-group input-spinner  ">
-                    <input type="button" value="-" class="button-minus  btn  btn-sm " data-field="quantity">
-                    <input type="number" step="1" max="10" value="1" name="quantity" class="quantity-field form-control-sm form-input   ">
-                    <input type="button" value="+" class="button-plus btn btn-sm " data-field="quantity">
-                  </div>
-
-            </div>
-            <!-- price -->
-            <div class="col-2 text-lg-end text-start text-md-end col-md-2">
-              <span class="fw-bold">$5.00</span>
-
-            </div>
-          </div>
-
-        </li>
-        <!-- list group -->
         <li class="list-group-item py-3 ps-0">
           <!-- row -->
           <div class="row align-items-center">
             <div class="col-3 col-md-2">
-              <!-- img --> <img src="${pageContext.request.contextPath}/Assets/assets/images/products/product-img-2.jpg" alt="Ecommerce"
+              <!-- img --> 
+              <img src="${pageContext.request.contextPath}${item.product.proImage}" alt="Ecommerce"
                 class="img-fluid"></div>
             <div class="col-4 col-md-6 col-lg-5">
               <!-- title -->
               <a href="../pages/shop-single.html" class="text-inherit">
-                <h6 class="mb-0">NutriChoice Digestive </h6>
+                <h6 class="mb-0" > ${item.product.proName } </h6>
               </a>
               <span><small class="text-muted">250g</small></span>
               <!-- text -->
@@ -382,146 +359,13 @@
             </div>
             <!-- price -->
             <div class="col-2 text-lg-end text-start text-md-end col-md-2">
-              <span class="fw-bold text-danger">$20.00</span>
-              <div class="text-decoration-line-through text-muted small">$26.00</div>
+              <span class="fw-bold text-danger string-money">${item.product.proPrice }</span>
+              <div class="text-decoration-line-through text-muted small string-money">${item.product.proPrice + 100000}</div>
             </div>
           </div>
-
-        </li>
-        <!-- list group -->
-        <li class="list-group-item py-3 ps-0">
-          <!-- row -->
-          <div class="row align-items-center">
-            <div class="col-3 col-md-2">
-              <!-- img --> <img src="${pageContext.request.contextPath}/Assets/assets/images/products/product-img-3.jpg" alt="Ecommerce"
-                class="img-fluid"></div>
-            <div class="col-4 col-md-6 col-lg-5">
-              <!-- title -->
-              <a href="../pages/shop-single.html" class="text-inherit">
-                <h6 class="mb-0">Cadbury 5 Star Chocolate</h6>
-              </a>
-              <span><small class="text-muted">1 kg</small></span>
-              <!-- text -->
-              <div class="mt-2 small lh-1"> <a href="#!" class="text-decoration-none text-inherit"> <span
-                    class="me-1 align-text-bottom">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
-                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                      class="feather feather-trash-2 text-success">
-                      <polyline points="3 6 5 6 21 6"></polyline>
-                      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
-                      </path>
-                      <line x1="10" y1="11" x2="10" y2="17"></line>
-                      <line x1="14" y1="11" x2="14" y2="17"></line>
-                    </svg></span><span class="text-muted">Remove</span></a></div>
-            </div>
-            <!-- input group -->
-            <div class="col-3 col-md-3 col-lg-3">
-              <!-- input -->
-              <!-- input -->
-                  <div class="input-group input-spinner  ">
-                    <input type="button" value="-" class="button-minus  btn  btn-sm " data-field="quantity">
-                    <input type="number" step="1" max="10" value="1" name="quantity" class="quantity-field form-control-sm form-input   ">
-                    <input type="button" value="+" class="button-plus btn btn-sm " data-field="quantity">
-                  </div>
-            </div>
-            <!-- price -->
-            <div class="col-2 text-lg-end text-start text-md-end col-md-2">
-              <span class="fw-bold">$15.00</span>
-              <div class="text-decoration-line-through text-muted small">$20.00</div>
-            </div>
-          </div>
-
-        </li>
-        <!-- list group -->
-        <li class="list-group-item py-3 ps-0">
-          <!-- row -->
-          <div class="row align-items-center">
-            <div class="col-3 col-md-2">
-              <!-- img --> <img src="${pageContext.request.contextPath}/Assets/assets/images/products/product-img-4.jpg" alt="Ecommerce"
-                class="img-fluid"></div>
-            <div class="col-4 col-md-6 col-lg-5">
-              <!-- title -->
-              <a href="../pages/shop-single.html" class="text-inherit">
-                <h6 class="mb-0">Onion Flavour Potato</h6>
-              </a>
-              <span><small class="text-muted">250g</small></span>
-              <!-- text -->
-              <div class="mt-2 small lh-1"> <a href="#!" class="text-decoration-none text-inherit"> <span
-                    class="me-1 align-text-bottom">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
-                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                      class="feather feather-trash-2 text-success">
-                      <polyline points="3 6 5 6 21 6"></polyline>
-                      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
-                      </path>
-                      <line x1="10" y1="11" x2="10" y2="17"></line>
-                      <line x1="14" y1="11" x2="14" y2="17"></line>
-                    </svg></span><span class="text-muted">Remove</span></a></div>
-            </div>
-            <!-- input group -->
-            <div class="col-3 col-md-3 col-lg-3">
-              <!-- input -->
-              <!-- input -->
-                  <div class="input-group input-spinner  ">
-                    <input type="button" value="-" class="button-minus  btn  btn-sm " data-field="quantity">
-                    <input type="number" step="1" max="10" value="1" name="quantity" class="quantity-field form-control-sm form-input   ">
-                    <input type="button" value="+" class="button-plus btn btn-sm " data-field="quantity">
-                  </div>
-            </div>
-            <!-- price -->
-            <div class="col-2 text-lg-end text-start text-md-end col-md-2">
-              <span class="fw-bold">$15.00</span>
-              <div class="text-decoration-line-through text-muted small">$20.00</div>
-            </div>
-          </div>
-
-        </li>
-        <!-- list group -->
-        <li class="list-group-item py-3 ps-0 border-bottom">
-          <!-- row -->
-          <div class="row align-items-center">
-            <div class="col-3 col-md-2">
-              <!-- img --> <img src="${pageContext.request.contextPath}/Assets/assets/images/products/product-img-5.jpg" alt="Ecommerce"
-                class="img-fluid"></div>
-            <div class="col-4 col-md-6 col-lg-5">
-              <!-- title -->
-              <a href="../pages/shop-single.html" class="text-inherit">
-                <h6 class="mb-0">Salted Instant Popcorn </h6>
-              </a>
-              <span><small class="text-muted">100g</small></span>
-              <!-- text -->
-              <div class="mt-2 small lh-1"> <a href="#!" class="text-decoration-none text-inherit"> <span
-                    class="me-1 align-text-bottom">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
-                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                      class="feather feather-trash-2 text-success">
-                      <polyline points="3 6 5 6 21 6"></polyline>
-                      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
-                      </path>
-                      <line x1="10" y1="11" x2="10" y2="17"></line>
-                      <line x1="14" y1="11" x2="14" y2="17"></line>
-                    </svg></span><span class="text-muted">Remove</span></a></div>
-            </div>
-            <!-- input group -->
-            <div class="col-3 col-md-3 col-lg-3">
-              <!-- input -->
-              <!-- input -->
-                  <div class="input-group input-spinner  ">
-                    <input type="button" value="-" class="button-minus  btn  btn-sm " data-field="quantity">
-                    <input type="number" step="1" max="10" value="1" name="quantity" class="quantity-field form-control-sm form-input   ">
-                    <input type="button" value="+" class="button-plus btn btn-sm " data-field="quantity">
-                  </div>
-            </div>
-            <!-- price -->
-            <div class="col-2 text-lg-end text-start text-md-end col-md-2">
-              <span class="fw-bold">$15.00</span>
-              <div class="text-decoration-line-through text-muted small">$25.00</div>
-            </div>
-          </div>
-
-        </li>
-
       </ul>
+      </c:forEach>
+      
       <!-- btn -->
       <div class="d-flex justify-content-between mt-4">
         <a href="#!" class="btn btn-primary">Continue Shopping</a>
@@ -532,7 +376,7 @@
   </div>
 </div>
 
-
+</c:if>
 <!-- End header in layout folder -->
 
  

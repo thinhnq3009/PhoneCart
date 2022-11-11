@@ -2,6 +2,9 @@ package eco.phonecart.app.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import eco.phonecart.app.interfaces.CheckerInterface;
+
 import java.util.List;
 
 
@@ -11,9 +14,10 @@ import java.util.List;
  */
 @Entity
 @NamedQuery(name="Users.findAll", query="SELECT u FROM Users u")
-public class Users implements Serializable, eco.phonecart.app.interfaces.CheckerInterface {
+public class Users implements Serializable, CheckerInterface {
 	private static final long serialVersionUID = 1L;
 
+		
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_user")

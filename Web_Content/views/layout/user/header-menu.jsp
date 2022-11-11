@@ -19,17 +19,13 @@
                                 <rect x="14" y="3" width="7" height="7"></rect>
                                 <rect x="14" y="14" width="7" height="7"></rect>
                                 <rect x="3" y="14" width="7" height="7"></rect>
-                            </svg></span> All Departments
+                            </svg></span> Categories
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="./pages/shop-grid.html">Dairy, Bread &amp; Eggs</a></li>
-                        <li><a class="dropdown-item" href="./pages/shop-grid.html">Snacks &amp; Munchies</a></li>
-                        <li><a class="dropdown-item" href="./pages/shop-grid.html">Fruits &amp; Vegetables</a></li>
-                        <li><a class="dropdown-item" href="./pages/shop-grid.html">Cold Drinks &amp; Juices</a></li>
-                        <li><a class="dropdown-item" href="./pages/shop-grid.html">Breakfast &amp; Instant Food</a></li>
-                        <li><a class="dropdown-item" href="./pages/shop-grid.html">Bakery &amp; Biscuits</a></li>
-
-                        <li><a class="dropdown-item" href="./pages/shop-grid.html">Chicken, Meat &amp; Fish</a></li>
+                        <c:forEach items="${listCategories}" var="item">
+                        	<li><a class="dropdown-item" href="./pages/shop-grid.html">${item.nameCategory}</a></li>
+                        </c:forEach>
+                       
                     </ul>
                 </div>
 
@@ -49,7 +45,7 @@
                                     <rect x="14" y="3" width="7" height="7"></rect>
                                     <rect x="14" y="14" width="7" height="7"></rect>
                                     <rect x="3" y="14" width="7" height="7"></rect>
-                                </svg></span> All Departments
+                                </svg></span> Categories
                         </a>
                         <div class="collapse mt-2" id="collapseExample">
                             <div class="card card-body">

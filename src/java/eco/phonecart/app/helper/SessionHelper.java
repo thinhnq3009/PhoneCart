@@ -12,10 +12,18 @@ public class SessionHelper {
 	public static String ERROR = "errorMessage";
 	public static String SUCCESS = "successMessage";
 	public static String POPUP = "listPopupMessage";
+	public static String USER = "userLogin";
+	public static String ADMIN = "adminLogin";
 
 	// Return value by name in session
 	public static Object getValue(HttpServletRequest request, String name) {
 		return request.getSession().getAttribute(name);
+	}
+	
+	public static void removeValue(HttpServletRequest request, String name) {
+		HttpSession session = request.getSession();
+		session.removeAttribute(name);
+	
 	}
 
 	public static void setValue(HttpServletRequest request, Object value, String name) {
@@ -85,7 +93,7 @@ public class SessionHelper {
 		return (List<PopupMessage>) getValue(request, POPUP);
 	}
 	
-	public static void add(HttpServletRequest request, PopupMessage message) {
+	public static void addPopup(HttpServletRequest request, PopupMessage message) {
 		List<PopupMessage>  list = initPopupMessage(request);
 		
 		message.addList(list);

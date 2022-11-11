@@ -18,13 +18,15 @@ import eco.phonecart.app.dao.ForgotPasswordDao;
 import eco.phonecart.app.dao.UsersDao;
 import eco.phonecart.app.email.Email;
 import eco.phonecart.app.email.MailSender;
+import eco.phonecart.app.helper.HttpHelper;
 import eco.phonecart.app.helper.PasswordHelper;
+import eco.phonecart.app.helper.SessionHelper;
 import eco.phonecart.app.model.Users;
 
 /**
- * Servlet implementation class SigninServlet
+ * Servlet implementation class SigninServlet 
  */
-@WebServlet({ "/Account/SignIn", "/Account/SignUp", "/Account/reset-password", "/Account/change"})
+@WebServlet({ "/Account/SignIn", "/Account/SignUp", "/Account/reset-password", "/Account/change", "/Account/Logout"})
 public class UserAccountServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -48,6 +50,9 @@ public class UserAccountServlet extends HttpServlet {
 			break;
 		case "/Account/change":
 			response.sendRedirect(request.getContextPath() + "/Account/SignIn");
+			break;
+		case "/Account/Logout":
+			doPost(request, response);
 			break;
 		default:
 			request.getRequestDispatcher("/views/user/pages/404error.jsp").forward(request, response);
@@ -74,10 +79,22 @@ public class UserAccountServlet extends HttpServlet {
 		case "/Account/change":
 			changePass(request, response);
 			break;
+		case "/Account/Logout": 
+			doLogout(request, response);
+			break;
 		default:
 			request.getRequestDispatcher("/views/user/pages/404error.jsp").forward(request, response);
 		}
 
+	}
+
+	private void doLogout(HttpServletRequest request, HttpServletResponse response) {
+		SessionHelper.removeValue(request, SessionHelper.USER);
+		try {
+			HttpHelper.go(response, "/Account/SignIn");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void changePass(HttpServletRequest request, HttpServletResponse response) {
@@ -105,7 +122,7 @@ public class UserAccountServlet extends HttpServlet {
 						
 						usersDao.update(user);
 						
-						session.setAttribute("successMessage", "Change password successfully");
+						session.setAttribute(SessionHelper.SUCCESS, "Change password successfully");
 						
 						response.sendRedirect(request.getContextPath() + "/Account/SignIn");
 						
@@ -116,14 +133,14 @@ public class UserAccountServlet extends HttpServlet {
 					
 					
 				} else {
-					session.setAttribute("errorMessage", "New password and confirm password is not equals");
+					session.setAttribute(SessionHelper.ERROR, "New password and confirm password is not equals");
 				}
 				
 				
 			} else if (isActive == 0) {
-				session.setAttribute("errorMessage", "Code has expired");
+				session.setAttribute(SessionHelper.ERROR, "Code has expired");
 			} else {
-				session.setAttribute("errorMessage", "Code is incorrect");
+				session.setAttribute(SessionHelper.ERROR, "Code is incorrect");
 			}
 			
 			
